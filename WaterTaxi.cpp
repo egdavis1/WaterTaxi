@@ -6,8 +6,8 @@ using namespace std;
 
 int main()
 {
-	ifstream inFile;
-	ofstream outFile;
+	ifstream inFile("taxi.txt");
+	ofstream outFile("taxi_info.txt");
 	
 	int numTrip = 0;
 	double num = 0, distance, totalDistance = 0, numR = 0, disE = 0, cost = 0,
@@ -16,14 +16,12 @@ int main()
 	
 	bool returnT = true;
 	
-	inFile.open("taxi.txt");
-	outFile.open("taxi_info.txt");
-
 	//Write headings to outFile
 	outFile << "Trip\tReturn\tStops\tDistance\tCost\t\tCumlative\tCumatlive\n";
 	outFile << "\t\t\t\t\t\t\tDistance\tCost\n";
-	
-	for (int x = 0; x < 78; x ++)
+
+	int x = 0;	
+	while (!inFile.eof())
 	{
 		inFile >> returnT;
 		inFile >> numTrip;
@@ -79,9 +77,10 @@ int main()
 			outFile << returnT << "\t" << numTrip << "\t";
 			outFile << distance << "\t\t" << cost << "\t\t" << totalDistance << "\t\t" << totalCost << "\n";
 		}
+		x++;
 	}
 	
-	outFile << "\nLowest cost: " << lowestCost << "\tLongest Trip: " << longestTrip << endl;
+	outFile << "\nLowest cost: $" << lowestCost << "\tLongest Trip: " << longestTrip << endl;
 	
 	//Close the files
 	outFile.close();
