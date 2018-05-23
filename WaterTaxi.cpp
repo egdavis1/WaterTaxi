@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -10,7 +11,7 @@ int main()
 	ofstream outFile("taxi_info.txt");
 	
 	int numTrip = 0;
-	double num = 0, distance, totalDistance = 0, numR = 0, disE = 0, cost = 0,
+	double num = 0, distance, totalDistance = 0, cost = 0,
 		   totalCost = 0, longestTrip = 0, lowestCost = 0;
 	const double DISTANCE_RATE = 2.70, TRIP_RATE = 11.00;
 	
@@ -19,6 +20,7 @@ int main()
 	//Write headings to outFile
 	outFile << "Trip\tReturn\tStops\tDistance\tCost\t\tCumlative\tCumatlive\n";
 	outFile << "\t\t\t\t\t\t\tDistance\tCost\n";
+	outFile << fixed << setprecision(2);
 
 	int x = 0;	
 	while (!inFile.eof())
@@ -42,10 +44,8 @@ int main()
 		for (int z = 0; z < numTrip; z ++)
 		{
 			distance = distance + sqrt((pow(tripx[z+1] - tripx[z], 2)) + (pow(tripy[z+1] - tripy[z], 2)));
-			disE = sqrt((pow(tripx[z+1] - tripx[z], 2)) + (pow(tripy[z+1] - tripy[z], 2)));	
 		}
 
-	
 		if (returnT == 1)
 		{
 			distance = distance + sqrt(pow(tripx[numTrip], 2) + pow(tripy[numTrip], 2));		
@@ -75,7 +75,7 @@ int main()
 		{
 			outFile << x+1 << "\t";
 			outFile << returnT << "\t" << numTrip << "\t";
-			outFile << distance << "\t\t" << cost << "\t\t" << totalDistance << "\t\t" << totalCost << "\n";
+			outFile << distance << "\t\t$" << cost << "\t\t" << totalDistance << "\t\t" << totalCost << "\n";
 		}
 		x++;
 	}
